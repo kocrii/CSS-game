@@ -1,0 +1,36 @@
+# Ren'Py compiled files
+*.rpyc
+*.rpyb
+*.rpa
+
+# Cache directory
+game/cache/
+
+# Save files
+game/saves/
+
+# Log files
+*.txt
+!game/fonts/README.txt
+!game/voice/README.txt
+
+# Temporary files
+*.bak
+*.tmp
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
