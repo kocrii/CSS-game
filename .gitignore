@@ -1,3 +1,5 @@
+# Escludi file delle variabili d'ambiente
+.env
 # Ren'Py compiled files
 *.rpyc
 *.rpyb
