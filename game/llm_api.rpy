@@ -41,7 +41,9 @@ init python:
         """
         # Carica la chiave dal file .env
         GG_API_KEY = load_env_var("GOOGLE_API_KEY")
-        GG_MODEL_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+        #print("--- DEBUG CHIAVE ---")
+        #print(f"La chiave letta è: {GG_API_KEY}")
+        GG_MODEL_ENDPOINT = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent"
 
         if not GG_API_KEY:
             return "Chiave API mancante. Assicurati che il file .env contenga GOOGLE_API_KEY."
@@ -53,7 +55,7 @@ init python:
                     {"parts": [{"text": prompt}]}
                 ],
                 "generationConfig": {
-                    "maxOutputTokens": 256,
+                    "maxOutputTokens": 1024,  # Aumentato per risposte più lunghe
                     "temperature": 0.7
                 }
             }
@@ -81,7 +83,13 @@ init python:
         except urllib.error.HTTPError as e:
             err_body = e.read().decode("utf-8") if hasattr(e, "read") else ""
             print(f"[LLM-API] HTTPError: {e.code} {e.reason}\n{err_body}")
-            return f"Errore API ({e.code}): {e.reason}\n{err_body}"
+            # Prova a estrarre solo il messaggio leggibile
+            try:
+                err_json = json.loads(err_body)
+                msg = err_json.get("error", {}).get("message", "Errore API generico.")
+                return f"Errore API ({e.code}): {msg}"
+            except Exception:
+                return f"Errore API ({e.code}): {e.reason}"
         except Exception as e:
             print(f"[LLM-API] Exception: {e}")
             return f"Errore di rete o parsing: {e}"

@@ -36,8 +36,8 @@ label background:
     voice "voice/elisa/test1.wav"  # Decommentare quando il file audio è pronto
     elisa "WOW, finalmente inizia la scuola, spero di conoscere persone fantastiche!"
     hide elisa_sorpresa
-    #jump casa
-    #jump  phone_chat4
+    #jump phone
+    jump  ritorno_aula_chat
     #jump fine_capitolo1_scenario2
     #call battle_game_1
     #jump ritorno_aula_chat
@@ -160,6 +160,7 @@ label yes_casa_paolo:
     with fade
     elisa "Faremo questa canzone, che dici?"
     paolo "Fantastica, iniziamo..."
+    play music "audio/tema_placido.mp3" loop #musichetta in sottofondo chitarra acustica
     hide elisa
     hide paolo
     #musichetta in sottofondo chitarra acustica anche "lauren - men i trust"
@@ -199,6 +200,7 @@ label yes_casa_paolo:
 
 
 label choices_no_credenziali:
+    play music "audio/tema_placido.mp3" loop #musichetta in sottofondo chitarra acustica
     scene stanzetta2
     with fade
     show paolo at right, character_size:
@@ -264,14 +266,15 @@ label choices_comune2:
     
 #controllo bene "polizia"
 label phone:
+    #play audio "audio/tema_di_tensione.mp3" loop
     scene stanzetta
     show elisa_sorpresa at right, character_size:
         ease 0.5 xalign 0.7
     elisa "Guarderò il telefono..ho bisogno di scrivere un messaggio."
-    play music "voice/Dead-Silence-Soundtrack.wav" #da capire perche si interrompe
+    play audio "audio/tema_di_tensione.mp3" #da capire perche si interrompe
     nvl_narrator "La chat di Elisa"
     #n_nvl "I miei pensieri..."
-    stop music fadeout 1.0
+    stop audio fadeout 1.0
     call phone_chat
 
     jump scuola2
@@ -381,6 +384,11 @@ label preside:
 
 
 label phone_chat2:
+    hide aiutante
+    hide elisa_sorpresa
+    hide elisa_triste
+    hide preside
+    play music "audio/tema_di_tensione.mp3" fadein 1.0
     # Imposta la fase "manipolativa" per la seconda chiamata
     $ hacker_phase = "manipulative"
     $ outcome_options = ["sicura", "rischiosa", "neutra"]
@@ -391,7 +399,7 @@ label phone_chat2:
         "default": "casa2"
     }
     jump phone_chat
-    jump phone
+    #jump phone
 
 label laboratorio:
     scene laboratorio
@@ -458,6 +466,7 @@ label casa_notte:
 label campetto:
     scene campo_scuola
     with fade 
+    play music "audio/tema_di_tensione.mp3" fadein 1.0
     show elisa_normale at center, character_size:
         #size(600,600)
     elisa "E' buio e fa freddissimo. Non c'è nessuno.... ho paura."
@@ -497,6 +506,11 @@ label campetto:
 
 
 label phone_chat3:
+    hide aiutante
+    hide elisa_sorpresa
+    hide anna
+    hide elisa_triste
+    play music "audio/tema_di_tensione.mp3" fadein 1.0
     # Imposta la fase finale per la terza chiamata
     $ hacker_phase = "final"
     $ outcome_options = ["sicura", "rischiosa", "neutra"]
@@ -541,6 +555,7 @@ label scuola3:
 label ufficio_preside3:
     scene ufficio_scuola
     with fade
+    play audio "audio/tema_placido.mp3" loop
     show elisa_triste at right, character_size
     show pg_preside at left, character_size:
         xzoom 0.85
@@ -604,8 +619,12 @@ menu:
 
 
 
-label phone_chat4:    # Imposta la fase finale per la quarta chiamata #MINACCIA
+label phone_chat4:   # Imposta la fase finale per la quarta chiamata #MINACCIA
+    hide anna
+    hide elisa_normale
+    hide elisa_sorpresa
     call phone_chat
+    play music "audio/tema_di_tensione.mp3" fadein 1.0
     $ hacker_phase = "final"
     elisa "Vuoi seguire le indicazioni del cyberbullo?"
     menu:
@@ -622,12 +641,16 @@ label phone_chat4:    # Imposta la fase finale per la quarta chiamata #MINACCIA
         "No, ignoro le indicazioni":
             play music "audio/avviso.wav" noloop volume 0.5
             "+2 prevenzione"
+            stop audio fadeout 1.0
             jump chiamata_preside
 
 
 
 #da capire quanto senso abbia, forse no
 label campetto2:
+    play music "audio/tema_di_tensione.mp3" fadein 1.0
+    # ...fine scena...
+    stop music fadeout 2.0
     scene campo_scuola  
     with fade
     show elisa_sorpresa at center, character_size
@@ -653,8 +676,9 @@ label chiamata_preside:
 label scoperta_paolo:
     scene ufficio_scuola
     with fade
+    play audio "audio/tema_placido.mp3" loop
     show pg_preside
-    show elisa_triste at righet, character_size
+    show elisa_triste at righe, character_size
     preside "Elisa, abbiamo scoperto, grazie alle indagini e alla polizia postale, che il tuo account è stato violato da Paolo."
     elisa "Cosa?? Ma... perchè??"
     preside "Stiamo indagando, ma sembra che Paolo avesse una sorta di ossessione nei tuoi confronti. Non è la prima volta che fa cose del genere, ma questa è la più grave."
@@ -672,15 +696,14 @@ label casa_finale:
     elisa "Ma non posso continuare a colpevolizzarmi, devo andare avanti e proteggermi."
     elisa "Devo parlare con i miei genitori, cambiare password, e cercare di non isolarmi."
     elisa "E soprattutto, devo ricordare che non è colpa mia."
+    $ renpy.pause(5)
     jump fine_capitolo1_scenario2
 
 label fine_capitolo1_scenario1:
-    scene campo_scuola
-    with fade
-
-    $ testofinale = "FINE CAPITOLO 1\nNon hai super superato il capitolo 1 perchè hai fatto troppe scelte sbagliate.\nNON RISPONDERE MAI A MESSAGGI DA SCONOSCIUTI, POTREBBERO TRATTARSI DI TRAPPOLE PER AVVICINARTI\nINOLTRE, INCONTRARE DI PERSONA UNO SCONOSCIUTO E' MOLTO PERICOLOSO"
+    play audio "audio/tema_placido.mp3" loop
+    $ testofinale = "FINE CAPITOLO 1\nNon hai super superato il capitolo 1 perchè hai fatto troppe scelte sbagliate.\n\nNON RISPONDERE MAI A MESSAGGI DA SCONOSCIUTI, POTREBBERO TRATTARSI DI TRAPPOLE PER AVVICINARTI\n\nINOLTRE, INCONTRARE DI PERSONA UNO SCONOSCIUTO E' MOLTO PERICOLOSO.\n\nPuoi rigiocare il capitolo per fare scelte più sicure e imparare dai tuoi errori."
     show screen fine_capitolo1_screen(testofinale)
-    pause 20
+    pause 30
     hide screen fine_capitolo1_screen
     return
 
@@ -691,17 +714,18 @@ label fine_capitolo1_scenario1:
 
 
 label fine_capitolo1_scenario2:
+    play audio "audio/tema_placido.mp3" loop
     scene nero
     with fade
 
-    $ testofinale = "Il cyberbullismo non è mai colpa della vittima.\nParlare, chiedere aiuto, proteggersi è il primo atto di coraggio."
+    $ testofinale = "Il cyberbullismo non è mai colpa della vittima.\nParlare, chiedere aiuto, proteggersi è il primo atto di coraggio.\n"
     if prevenzione >= 5:
-        $ testofinale += "\nHai completato e superato il capitolo con un alto livello di prevenzione, puoi rigiocare per scoprire nuove scene e imparare nuovi scenari e come difenderti."
+        $ testofinale += "\nHai completato e superato il capitolo con un alto livello di prevenzione, puoi rigiocare per scoprire nuove scene e imparare nuovi scenari e come difenderti.\n"
     else:
         $ testofinale += "\nNon hai completato il capitolo con un alto livello di prevenzione, ma puoi rigiocare il capitolo per fare scelte più sicure e imparare dai tuoi errori."
     $ testofinale += "\nFine Capitolo 1 :)"
 
     show screen fine_capitolo1_screen(testofinale)
-    pause 20
+    pause 30
     hide screen fine_capitolo1_screen
     return

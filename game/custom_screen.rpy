@@ -1,13 +1,17 @@
 # Bottone Statistiche e Oggetti
-screen gameUI:
-    imagebutton:
-        xalign 1.0
-        yalign 0.0
-        xoffset -50
-        yoffset 15
-        idle "pulcino_stats_idle.png"
-        hover "pulcino_stats_hover.png"
-        action ShowMenu ("StatsUI")
+screen gameUI():
+    frame:
+        background "#2228"
+        xalign 0.95
+        yalign 0.05
+        padding (20, 10)
+        hbox:
+            spacing 15
+            add "pulcino_stats_idle.png" yalign 0.5 xysize (60, 60)
+            vbox:
+                spacing 5
+                text "Scudo Digitale: [prevenzione]/5" size 25 color "#00ff00"
+                bar value prevenzione range 5 xsize 200
 
 screen StatsUI:
     frame:
@@ -25,7 +29,7 @@ screen StatsUI:
                 text "STATISTICHE:" size 30
                 #text "{image=handshake.png}{alt}Amicizia{/alt}  Amicizia: [amicizia]" size 20 color "#99ff99"
                 #text "{image=heart.png}{alt}Amore{/alt}  Amore: [amore]" size 20 color "#ffccff"
-                text "{image=ungry.png}{alt}ungry{/alt}  prevenzione: [prevenzione]" size 30 color "#66ccff"
+                text "{image=ungry.png}{alt}ungry{/alt}  Punti Prevenzione: [prevenzione]" size 30 color "#66ccff"
                 #text "__________________" size 15
                 #text "RISORSE:" size 10
                 #text "{image=money.png}{alt}money{/alt}  Soldi: € [soldi]" size 20 color "#ffff99"

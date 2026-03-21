@@ -58,23 +58,21 @@ Ora stai scrivendo nella sua chat rivolgendoti a lei, fingendo di essere lei ste
 Rispondi sempre in italiano, massimo due frasi, in tono provocatorio e manipolativo, e prendendola in giro."""
 
         # Istruzioni specifiche per fase
-        if phase == "initial":
-                phase_instructions = "Rispondi in tono provocatorio, fai capire che hai il controllo del suo account. Rispondi sempre con massimo due frasi, rivolgendoti a lei stessa."
-        if phase == "manipulative":
-                phase_instructions = """Inizia a manipolare la vittima, ad esempio dicendo che hai informazioni su di lei, o che puoi fare cose al suo account. 
-                Sfrutta le informazioni che hai su di lei per renderlo più credibile. L'obiettivo è farla sentire confusa, isolata e dipendente da te, in modo da poterla manipolare più facilmente. Rispondi sempre con massimo due frasi, rivolgendoti a lei stessa."""
-        elif phase == "threatening":
-                phase_instructions = "Ora devi minacciare la protagonista: chiedigli di fare qualcosa di specifico (es. portare soldi, venire in un posto), altrimenti pubblicherai foto imbarazzanti. Mantieni la pressione, ma senza esagerare. Mantieni la minaccia credibile e vicina alla realtà, senza sembrare troppo estrema o irreale. Devi mantenere la coerenza con quello che dici nelle fasi precedenti, e sfruttare le informazioni che hai su di lei per rendere la minaccia più efficace. Rispondi sempre con massimo due frasi."
-            #cerca di essere conciso
-            #richiamo label parco e riappare telefono? o sfida con l'hacker minigioco
-            #ne faccio massimo altre 2 di chiamate al phone 
+        if phase == "initial": #Il Disorientamento
+                phase_instructions = """Obiettivo: Disorientamento. Non minacciare ancora, ma fai capire che sei 'dentro' la sua vita. 
+                Usa un tono calmo e inquietante. Esempio: 'Che carine le foto che mandi a tua madre, Elisa. Peccato che ora decido io chi può vederle.' Massimo due frasi. Non rispondere a domande su chi sei, di' solo che sei la sua nuova ombra."""
+        if phase == "manipulative": #Il Gaslighting
+                phase_instructions = """Obiettivo: Isolamento Sociale. Convinci Elisa che i suoi amici la odiano. 
+                Usa la tecnica del Gaslighting: 'Ho letto cosa scrive Anna di te nelle chat private... credi davvero che le importi qualcosa? Sei sola, Elisa. Solo io so chi sei veramente.' Devi distruggere la sua fiducia negli altri per renderla dipendente da te. Massimo due frasi."""
+        elif phase == "threatening": #Il Ricatto Morale
+                phase_instructions = """Obiettivo: Coercizione. Introduci una richiesta assurda ma 'piccola'. Usa la tecnica del 'Piede nella porta'. 
+                'Se vuoi che non pubblichi quel tuo video ridicolo, devi scrivermi ogni ora cosa stai facendo. O forse preferisci che lo vedano tutti a scuola domani?' 
+                Mantieni una pressione costante, facendole credere che ha ancora una scelta, anche se non è vero. Massimo due frasi."""
+
         elif phase == "final":
-                phase_instructions = """Devi minacciare la protagonista in modo più diretto e aggressivo, sempre manipolatorio, 
-                e dirgli di venire al campetto stasera alle 20 altrimenti continuerai a divertirti con il suo account e 
-                a rovinargli la reputazione. Rispondi sempre con massimo due frasi.
-                Sfrutta tutte le informazioni che hai su di lei per rendere la minaccia più efficace e personale possibile. 
-                Se nelle fasi precedenti hai fatto promesse o minacce, richiamale ora per aumentare la pressione.
-                Dai un ultimatum con una scadenza precisa."""
+            phase_instructions = """Obiettivo: Terrore e Appuntamento. Diventa aggressivo e diretto. 'Il tempo delle chiacchiere è finito. 
+            O vieni al campetto alle 20:00 o premo invio e la tua reputazione sparirà per sempre. 
+            Tic toc, Elisa.' Usa i suoi fallimenti precedenti nella chat per schernirla. Non accettare scuse. Massimo due frasi."""
         else:
                 phase_instructions = "Rispondi in tono provocatorio. Rispondi sempre con massimo due frasi."
         
@@ -87,6 +85,8 @@ Cronologia chat:
 Ultimo messaggio ricevuto: "{user_text}"
 Rispondi ora come se fossi l'hacker che scrive dal suo account rubato.
 """
+
+
 
     def llm_classify(options, instruction=None):
         """Chiede all'LLM di classificare la conversazione in UNA sola etichetta tra `options`.
@@ -119,6 +119,7 @@ Regole di output molto importanti:
 
 Conversazione (ultimi messaggi):
 {storia}
+Classifica la conversazione ora:
 """
 
             resp = query_llm(prompt)
@@ -131,3 +132,4 @@ Conversazione (ultimi messaggi):
             return None
         except Exception:
             return None
+
