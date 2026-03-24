@@ -34,20 +34,18 @@ label start:
     show aiutante at left, character_size:
         xzoom 0.85 
         yzoom 1.25
-    aiutante "Ciao, benvenuto! Questo è un Serious Game sulla Cyber Social Security."
-    aiutante "Il gioco è strutturato in 2 capitoli, ognuno dei quali tratta una tematica differente legata al mondo della sicurezza."
-    "Ogni capitolo è suddiviso in varie scene interattive, in cui potrai prendere delle decisioni che influenzeranno lo svolgimento della storia."
+    aiutante "Ciao, benvenuto! Io sono Miao e ti aiuterò a navigare attraverso questo Serious Game sulla Cyber Social Security."
+    aiutante "Il gioco inizia con il primo capitolo, che tratta una tematica legata al mondo della sicurezza, in particolare al cyberbullismo."
+    "Il videogioco è suddiviso in varie scene interattive, in cui potrai prendere delle decisioni che influenzeranno lo svolgimento della storia."
     "Buon divertimento!"
 
     
     #jump phone_chat
-    "Da dove vuoi iniziare?"
+    "Vuoi iniziare?"
     hide aiutante with dissolve
     menu:
-        "Capitolo 1: cyberbulling":
+        "Capitolo 1: cyberbullismo":
             jump capitolo1
-        "Capitolo 2: revenge porn":
-            jump capitolo2
 
     jump game
 

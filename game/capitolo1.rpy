@@ -12,16 +12,16 @@ label capitolo1:
     show aiutante at left, character_size:
         xzoom 0.8
         yzoom 1.2
-    aiutante "Quello che devi fare è semplice: ogni tua scelta potrà aumentare i tuoi Punti Prevenzione o diminuirli."
+    aiutante "Quello che devi fare è semplice: durante l'utilizzo del gioco, potrai fare delle scelte per continuare la storia della protagonista."
+    aiutante "Ogni tua scelta potrà aumentare i tuoi Punti Prevenzione o diminuirli."
     aiutante "Il tuo obiettivo è quello di raggiungere un punteggio di prevenzione alto, in modo da proteggerti al meglio dalle minacce del cyberbullismo."
-    aiutante "Il bottone-gattino in alto a destra ti aiuterà a tenere conto dei tuoi punti."
+    aiutante "Il contatore in alto a destra è il tuo Scudo Digitale: ti aiuterà a tenere conto dei tuoi punti prevenzione, fai attenzione a non farli scendere troppo!"
     aiutante "Vincerai il gioco se ottieni un punteggio prevenzione ≥   5"
     aiutante "FAI LA SCELTA GIUSTA!"
     hide aiutante 
     
 
-#Creazione barra di prevenzione
-default barra_prevenzione = 0
+
 
 #Creazione oggetti del gioco
 default prevenzione = 0
@@ -37,7 +37,7 @@ label background:
     elisa "WOW, finalmente inizia la scuola, spero di conoscere persone fantastiche!"
     hide elisa_sorpresa
     #jump phone
-    jump  ritorno_aula_chat
+    #jump  casa_finale
     #jump fine_capitolo1_scenario2
     #call battle_game_1
     #jump ritorno_aula_chat
@@ -189,10 +189,13 @@ label yes_casa_paolo:
                 show aiutante at center, character_size:    
                     xzoom 0.8
                     yzoom 1.2
+                hide elisa_sorpresa
+                hide paolo
                 aiutante "ATTENZIONE! ANCHE SE QUALCUNO PROMETTE DI FARE LOGOUT, NON DOVRESTI MAI DARE LE TUE CREDENZIALI"
                 "-1 punti prevenzione"
                 aiutante "E'  RISCHIOSO INSERIRE LE PROPRIE CREDENZIALI NEI DISPOSITIVI DI ALTRI."
                 aiutante "RICORDA CHE DEVI SEMPRE ASSICURARTI DI ESSERE USCITO DAL TUO ACCOUNT"
+                stop music fadeout 1.0
                 call prevenzione_decreased
                 jump choices_comune2
                 
@@ -696,6 +699,13 @@ label casa_finale:
     elisa "Ma non posso continuare a colpevolizzarmi, devo andare avanti e proteggermi."
     elisa "Devo parlare con i miei genitori, cambiare password, e cercare di non isolarmi."
     elisa "E soprattutto, devo ricordare che non è colpa mia."
+    hide elisa_triste
+    show aiutante at center, character_size:
+        xzoom 0.8
+        yzoom 1.2
+    aiutante "Complimenti, c'è un ultimo messaggio per te."
+    hide aiutante
+    jump battle_game_1
     $ renpy.pause(5)
     jump fine_capitolo1_scenario2
 

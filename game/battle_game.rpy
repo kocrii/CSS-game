@@ -113,15 +113,16 @@ label battle_1_loop:
             if prevenzione >= 5:
                 #play audio "audio/win sound.ogg" volume 1.0
                 elisa "Ho vinto!"
-                elisa "Posso ottenere le credenziali ora??"
+                elisa "Sparisci adesso!!!"
                 elisa "Mi sono rimasti solo [cookies_left] biscotti"
+                jump fine_capitolo1_scenario2
             else:
                 elisa "Non hai abbastanza punti prevenzione per vincere!"
                 elisa "I biscotti non sono bastati... Riprova ad aumentare i tuoi punti prevenzione."
+                jump fine_capitolo1_scenario1
     else:
         cyberbullo "Ah-Ah-Ah {i}Cosa credevi di fare?{/i}"
-
-    jump fine_capitolo1_scenario1
+        jump fine_capitolo1_scenario1
 
 #label battle_1_ending:
 #   "Fine"
