@@ -2,6 +2,7 @@
 
 define nvl_mode = "phone"  ##Allow the NVL mode to become a phone conversation
 define MC_Name = "Io" ##The name of the main character, used to place them on the screen
+default phone_is_waiting_llm = False
 
 init -1 python:
     phone_position_x = 0.3
@@ -25,18 +26,10 @@ transform phone_appear(pXalign=0.5, pYalign=0.5): #Used only when the dialogue h
     xcenter pXalign
     yalign pYalign
 
-    on show:
-        yoffset 1080
-        easein_back 1.0 yoffset 0
-
     
 transform message_appear(pDirection):
     alpha 0.0
-    xoffset 50 * pDirection
-    parallel:
-        ease 0.5 alpha 1.0
-    parallel:
-        easein_back 0.5 xoffset 0
+    ease 0.25 alpha 1.0
 
 transform message_appear_icon():
     zoom 0.0
@@ -44,13 +37,11 @@ transform message_appear_icon():
     
 
 transform message_narrator:
-    alpha 0.0
-    yoffset -50
-
-    parallel:
-        ease 0.5 alpha 1.0
-    parallel:
-        easein_back 0.5 yoffset 0
+    alpha 1.0
+    on show:
+        ease 1.5 alpha 0.6
+        ease 1.5 alpha 1.0
+        repeat
 
 screen PhoneDialogue(dialogue, items=None):
 
@@ -108,7 +99,7 @@ screen nvl_phonetext(dialogue):
 
                     add message_icon:
                         size (107, 107)  # Dimensione fissa per l'icona
-                        if d.current:
+                        if d.current and not phone_is_waiting_llm:
                             at message_appear_icon()
                         
                 else:
@@ -127,9 +118,9 @@ screen nvl_phonetext(dialogue):
                         xsize 350
 
                         if d.current:
-                            if d.who == MC_Name:
+                            if d.who == MC_Name and not phone_is_waiting_llm:
                                 at message_appear(1)
-                            else:
+                            elif d.who != MC_Name and not phone_is_waiting_llm:
                                 at message_appear(-1)
 
                         text d.what:
@@ -148,7 +139,24 @@ screen nvl_phonetext(dialogue):
                                 
                             id d.what_id
         $ previous_d_who = d.who
-                    
+
+    if phone_is_waiting_llm:
+        hbox:
+            spacing 10
+            null width 107
+
+            vbox:
+                yalign 1.0
+
+                frame:
+                    background Frame("phone_received_frame.png", 23, 23, 23, 23)
+                    xsize 260
+                    padding (14, 10)
+
+                    text "Sta scrivendo...":
+                        size 24
+                        color "#000"
+
 style phoneFrame is default
 
 style phoneFrame_frame:

@@ -36,7 +36,7 @@ label background:
     voice "voice/elisa/test1.wav"  # Decommentare quando il file audio è pronto
     elisa "WOW, finalmente inizia la scuola, spero di conoscere persone fantastiche!"
     hide elisa_sorpresa
-    #jump phone
+    jump phone
     #jump  casa_finale
     #jump fine_capitolo1_scenario2
     #call battle_game_1
@@ -623,6 +623,7 @@ menu:
 
 
 label phone_chat4:   # Imposta la fase finale per la quarta chiamata #MINACCIA
+    hide preside
     hide anna
     hide elisa_normale
     hide elisa_sorpresa
@@ -710,6 +711,7 @@ label casa_finale:
     jump fine_capitolo1_scenario2
 
 label fine_capitolo1_scenario1:
+    window hide
     play audio "audio/tema_placido.mp3" loop
     $ testofinale = "FINE CAPITOLO 1\nNon hai super superato il capitolo 1 perchè hai fatto troppe scelte sbagliate.\n\nNON RISPONDERE MAI A MESSAGGI DA SCONOSCIUTI, POTREBBERO TRATTARSI DI TRAPPOLE PER AVVICINARTI\n\nINOLTRE, INCONTRARE DI PERSONA UNO SCONOSCIUTO E' MOLTO PERICOLOSO.\n\nPuoi rigiocare il capitolo per fare scelte più sicure e imparare dai tuoi errori."
     show screen fine_capitolo1_screen(testofinale)
@@ -724,10 +726,10 @@ label fine_capitolo1_scenario1:
 
 
 label fine_capitolo1_scenario2:
+    window hide
     play audio "audio/tema_placido.mp3" loop
     scene nero
     with fade
-
     $ testofinale = "Il cyberbullismo non è mai colpa della vittima.\nParlare, chiedere aiuto, proteggersi è il primo atto di coraggio.\n"
     if prevenzione >= 5:
         $ testofinale += "\nHai completato e superato il capitolo con un alto livello di prevenzione, puoi rigiocare per scoprire nuove scene e imparare nuovi scenari e come difenderti.\n"

@@ -69,13 +69,17 @@ label phone_chat:
             _thread.daemon = True
             _thread.start()
 
-        # Mostra un indicatore nell'interfaccia del telefono che l'LLM sta scrivendo
-        nvl_narrator "Sta scrivendo..."
+        # Mostra l'indicatore nella lista messaggi, sotto l'ultimo testo inviato.
+        $ phone_is_waiting_llm = True
+        $ renpy.restart_interaction()
 
         # Attendi il completamento del thread in modo non bloccante (aggiorna l'interfaccia)
         python:
             while _thread.is_alive():
                 renpy.pause(0.1)
+
+        $ phone_is_waiting_llm = False
+        $ renpy.restart_interaction()
 
         # Recupera risultato/errore
         python:
